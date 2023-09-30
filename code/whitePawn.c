@@ -36,7 +36,7 @@ int * calculateAllowedMovesWhitePawn(int rows, int cols, int *board, int rowPosi
         }
         /* Spot 2: move one vertical unit towards the bottom and one horizontal unit to the right*/
         // If spot is populated by an enemy piece, we can move and eat.
-        if (board[rowPosition*8 + columnPosition - 7] == 0 ) {
+        if (board[rowPosition*8 + columnPosition - 7] > 6 ) {
             allowedMoves[count - 2] = rowPosition - 1;
             allowedMoves[count - 1] = columnPosition + 1;
             count += 2;
@@ -52,7 +52,7 @@ int * calculateAllowedMovesWhitePawn(int rows, int cols, int *board, int rowPosi
         }
         /* Spot 3: move one vertical unit towards the bottom and one horizontal unit to the left*/
         // If spot is populated by an enemy piece, we can move and eat.
-        if (board[rowPosition*8 + columnPosition - 9] == 0 ) {
+        if (board[rowPosition*8 + columnPosition - 9] > 6) {
             allowedMoves[count - 2] = rowPosition - 1;
             allowedMoves[count - 1] = columnPosition - 1;
             count += 2;
