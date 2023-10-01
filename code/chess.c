@@ -30,7 +30,6 @@ int main(void) {
 	};
 	int * ourArray = calculateAllowedMovesWhitePawn(8,8, board[0], 6, 3);
 	int *array2 = calculateAllowedMovesKnight(8,8, board[0], 7, 1, 3);
-	size_t n = sizeof(array2) / sizeof(int);
 	for (size_t i = 0; i < 4; i++) {
 		printf("%d", array2[i]);
 	}
@@ -48,6 +47,9 @@ int main(void) {
 			printf("There is no piece in position [%d,%d]",i1,i2);
 		} else {
 			int pieceCode = board[i1][i2];
+			int *possibleMoves = calculateMovesPiece(8, 8, board[0], i1, i2, pieceCode);
+			int lengthMovesArr = possibleMoves[0];
+			printf("%d", lengthMovesArr);
 		}
 	}
 	return 0;

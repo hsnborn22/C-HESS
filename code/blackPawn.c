@@ -9,7 +9,7 @@ int * calculateAllowedMovesBlackPawn(int rows, int cols, int *board, int rowPosi
     int * allowedMoves = (int*)malloc(sizeof(int) * count);
     allowedMoves[0] = count;
     allowedMoves[1] = UNDEFINED_VALUE;
-    allowedMOves[2] = UNDEFINED_VALUE;
+    allowedMoves[2] = UNDEFINED_VALUE;
     if (allowedMoves == NULL) {
         /* Check if memory allocation with malloc is not successful */
         exit(0);
