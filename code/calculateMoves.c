@@ -8,6 +8,7 @@ int * calculateAllowedMovesWhitePawn(int rows, int cols, int *board, int rowPosi
 int * calculateAllowedMovesBlackPawn(int rows, int cols, int *board, int rowPosition, int columnPosition);
 int * calculateAllowedMovesKnight(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
 int * calculateAllowedMovesTower(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
+int * calculateAllowedMovesBishop(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
 
 
 // Function to calculate the moves for an undetermined piece
@@ -27,6 +28,10 @@ int * calculateMovesPiece(int rows, int cols, int *board, int rowPosition, int c
         case 3:
             arrayMoves = calculateAllowedMovesKnight(8,8,board, rowPosition, columnPosition, 3);
             break;
+        // Check if the piece is a white bishop; if so we use the function coded in bishop.c to compute the allowed moves.
+        case 4:
+            arrayMoves = calculateAllowedMovesBishop(8,8,board, rowPosition, columnPosition, 4);
+            break;
         // Check if the piece is a black pawn; if so, the list of possible moves is returned by the function defined in blackPawn.c
         case 7:
             arrayMoves = calculateAllowedMovesBlackPawn(8,8,board,rowPosition, columnPosition);
@@ -38,6 +43,10 @@ int * calculateMovesPiece(int rows, int cols, int *board, int rowPosition, int c
         // Check if the piece is a black knight; if so we use the function coded in knight.c to compute the allowed moves.
         case 9:
             arrayMoves = calculateAllowedMovesKnight(8,8,board, rowPosition, columnPosition, 9);
+            break;
+        // Check if the piece is a black bishop; if so we use the function coded in bishop.c to compute the allowed moves.
+        case 10:
+            arrayMoves = calculateAllowedMovesBishop(8,8,board, rowPosition, columnPosition, 10);
             break;
     }
     // We return the arrayMoves array (containing all the possible moves) to the caller.

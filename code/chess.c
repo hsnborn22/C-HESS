@@ -57,6 +57,7 @@ int main(void) {
 			} else {
 				printf("The inserted move is not allowed!\n");
 			}
+			free(possibleMoves);
 		}
 	}
 	return 0;
