@@ -5,10 +5,11 @@
 /* Function to calculate all possible moves for a black pawn in a determined position */
 
 int * calculateAllowedMovesBlackPawn(int rows, int cols, int *board, int rowPosition, int columnPosition) {
-    int count = 2;
+    int count = 3;
     int * allowedMoves = (int*)malloc(sizeof(int) * count);
-    allowedMoves[0] = UNDEFINED_VALUE;
+    allowedMoves[0] = count;
     allowedMoves[1] = UNDEFINED_VALUE;
+    allowedMOves[2] = UNDEFINED_VALUE;
     if (allowedMoves == NULL) {
         /* Check if memory allocation with malloc is not successful */
         exit(0);
@@ -24,6 +25,7 @@ int * calculateAllowedMovesBlackPawn(int rows, int cols, int *board, int rowPosi
             allowedMoves[count - 2] = rowPosition + 1;
             allowedMoves[count - 1] = columnPosition;
             count += 2;
+            allowedMoves[0] = count;
             /* Declare a temporary variable storing the value of our array of interest */
             int *temp = allowedMoves;
             allowedMoves = realloc(allowedMoves, count * sizeof(int));
@@ -40,6 +42,7 @@ int * calculateAllowedMovesBlackPawn(int rows, int cols, int *board, int rowPosi
             allowedMoves[count - 2] = rowPosition + 1;
             allowedMoves[count - 1] = columnPosition + 1;
             count += 2;
+            allowedMoves[0] = count;
             /* Declare a temporary variable storing the value of our array of interest */
             int *temp = allowedMoves;
             allowedMoves = realloc(allowedMoves, count * sizeof(int));
@@ -56,6 +59,7 @@ int * calculateAllowedMovesBlackPawn(int rows, int cols, int *board, int rowPosi
             allowedMoves[count - 2] = rowPosition + 1;
             allowedMoves[count - 1] = columnPosition - 1;
             count += 2;
+            allowedMoves[0] = count;
             /* Declare a temporary variable storing the value of our array of interest */
             int *temp = allowedMoves;
             allowedMoves = realloc(allowedMoves, count * sizeof(int));
@@ -73,6 +77,7 @@ int * calculateAllowedMovesBlackPawn(int rows, int cols, int *board, int rowPosi
                 allowedMoves[count - 2] = rowPosition + 2;
                 allowedMoves[count - 1] = columnPosition;
                 count += 2;
+                allowedMoves[0] = count;
                 /* Declare a temporary variable storing the value of our array of interest */
                 int *temp = allowedMoves;
                 allowedMoves = realloc(allowedMoves, count * sizeof(int));
