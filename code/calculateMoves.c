@@ -28,3 +28,12 @@ int * calculateMovesPiece(int rows, int cols, int *board, int rowPosition, int c
     }
     return arrayMoves;
 }
+
+int checkIfMoveIsIn(int rowpos, int columnpos, int *moves, int movesLength) {
+    for (int i =0; i < movesLength; i+=2) {
+        if (moves[i+1] == rowpos && moves[i+2] == columnpos) {
+            return 1;
+        } else {}
+    }
+    return 0;
+}

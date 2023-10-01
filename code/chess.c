@@ -7,6 +7,7 @@ int * calculateAllowedMovesWhitePawn(int rows, int cols, int *board, int rowPosi
 int * calculateAllowedMovesBlackPawn(int rows, int cols, int *board, int rowPosition, int columnPosition);
 int * calculateAllowedMovesKnight(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
 int * calculateMovesPiece(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
+int checkIfMoveIsIn(int rowpos, int columnpos, int *moves, int movesLength);
 
 /*  ------------  Pieces notation: ------------
 1 -> white pawn          | 7 -->  black pawn
@@ -48,8 +49,12 @@ int main(void) {
 		} else {
 			int pieceCode = board[i1][i2];
 			int *possibleMoves = calculateMovesPiece(8, 8, board[0], i1, i2, pieceCode);
-			int lengthMovesArr = possibleMoves[0];
-			printf("%d", lengthMovesArr);
+			int lengthMovesArr = possibleMoves[0] - 2;
+			if (checkIfMoveIsIn(j1,j2,possibleMoves[0],lengthMovesArr)) {
+				/* Do stuff */
+			} else {
+				printf("The inserted move is not allowed!\n");
+			}
 		}
 	}
 	return 0;
