@@ -6,8 +6,10 @@ int valueIsInArray(int value, int *arr, int length);
 int * calculateAllowedMovesWhitePawn(int rows, int cols, int *board, int rowPosition, int columnPosition);
 int * calculateAllowedMovesBlackPawn(int rows, int cols, int *board, int rowPosition, int columnPosition);
 int * calculateAllowedMovesKnight(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
+int * calculateAllowedMovesTower(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
 int * calculateMovesPiece(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
 int checkIfMoveIsIn(int rowpos, int columnpos, int *moves, int movesLength);
+void movePiece(int initRow, int initColumn, int endRow, int endColumn, int * board, int code);
 
 /*  ------------  Pieces notation: ------------
 1 -> white pawn          | 7 -->  black pawn
@@ -45,13 +47,13 @@ int main(void) {
 		if (i1 > 7 || i2 > 7 || j1 > 7 || j2 > 7) {
 			printf("Position values not valid: they lie outside the board \n");
 		} else if (board[i1][i2] == 0) {
-			printf("There is no piece in position [%d,%d]",i1,i2);
+			printf("There is no piece in position [%d,%d] \n",i1,i2);
 		} else {
 			int pieceCode = board[i1][i2];
 			int *possibleMoves = calculateMovesPiece(8, 8, board[0], i1, i2, pieceCode);
 			int lengthMovesArr = possibleMoves[0] - 2;
-			if (checkIfMoveIsIn(j1,j2,possibleMoves[0],lengthMovesArr)) {
-				/* Do stuff */
+			if (checkIfMoveIsIn(j1,j2,possibleMoves,lengthMovesArr)) {
+				movePiece(i1,i2,j1,j2,board[0],pieceCode);
 			} else {
 				printf("The inserted move is not allowed!\n");
 			}

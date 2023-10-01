@@ -2,20 +2,9 @@
 #include <stdlib.h>
 #define UNDEFINED_VALUE 8001
 
-/* Function to check whether an integer value is in an array */
-int valueIsInArray(int value, int *arr, int length) {
-    for(int i = 0; i < length; i++) {
-        if(arr[i] == value)
-            return 1;
-    }
-    return 0;
-    // Possible future change: change these with _Bool C89 or bool C99 <stdbool.h> library types for better readability
-}
+int valueIsInArray(int value, int *arr, int length);
 
-
-/* Function to calculate all possible moves for a knight in a determined position */
-
-int * calculateAllowedMovesKnight(int rows, int cols, int *board, int rowPosition, int columnPosition, int code) {
+int * calculateAllowedMovesTower(int rows, int cols, int *board, int rowPosition, int columnPosition, int code) {
     int count = 3;
     int * allowedMoves = (int*)malloc(sizeof(int) * count);
     if (allowedMoves == NULL) {
@@ -27,17 +16,17 @@ int * calculateAllowedMovesKnight(int rows, int cols, int *board, int rowPositio
     allowedMoves[0] = count;
     allowedMoves[1] = UNDEFINED_VALUE;
     allowedMoves[2] = UNDEFINED_VALUE;
-    /* Check if the piece in the position passed is actually a knight (code 3 or 9)*/
-    if (board[rowPosition * 8 + columnPosition] == code) {
+    /* Check if the piece in the position passed is actually a tower (code 2 or 8)*/
+    if (board[rowPosition* 8 + columnPosition] == code) {
         int eatingRange[6];
-        if (code == 3) {
+        if (code == 2) {
             eatingRange[0] = 7;
             eatingRange[1] = 8;
             eatingRange[2] = 9;
             eatingRange[3] = 10;
             eatingRange[4] = 11;
             eatingRange[5] = 12;
-        } else if (code == 9) {
+        } else if (code == 8) {
             eatingRange[0] = 1;
             eatingRange[1] = 2;
             eatingRange[2] = 3;
@@ -45,13 +34,14 @@ int * calculateAllowedMovesKnight(int rows, int cols, int *board, int rowPositio
             eatingRange[4] = 5;
             eatingRange[5] = 6;        
         }
-        /* Check all the possible allowed moves: knight can move in at most 8 places */
-        // Spot 1
-        if (rowPosition + 1 <= 7 && columnPosition + 2 <=7) {
-            if (board[rowPosition*8 + columnPosition + 10] == 0 || valueIsInArray(board[rowPosition*8 + columnPosition + 10], eatingRange, 6)) {
+        // Check for places where the tower can move:
+        // The tower can move radially outwards from the center towards all 4 directions
+        // 1) top
+        for (int i = 1; i <= rowPosition; i++) {
+            if (board[(rowPosition - i)*8 + columnPosition] == 0 ) {
                 // Store position in our array and then reallocate memory for other possible positions.
-                allowedMoves[count - 2] = rowPosition + 1;
-                allowedMoves[count - 1] = columnPosition + 2;
+                allowedMoves[count - 2] = rowPosition - i;
+                allowedMoves[count - 1] = columnPosition;
                 count += 2;
                 allowedMoves[0] = count;
                 /* Declare a temporary variable storing the value of our array of interest */
@@ -63,14 +53,10 @@ int * calculateAllowedMovesKnight(int rows, int cols, int *board, int rowPositio
                 } else {
                     /* Memory re-allocation is sucessful */
                 }
-            }
-        }
-        // Spot 2
-        if (rowPosition + 1 <= 7 && columnPosition - 2 >= 0) {
-            if (board[rowPosition*8 + columnPosition + 6] == 0 || valueIsInArray(board[rowPosition*8 + columnPosition + 6], eatingRange, 6)) {
-                // Store position in our array and then reallocate memory for other possible positions.
-                allowedMoves[count - 2] = rowPosition + 1;
-                allowedMoves[count - 1] = columnPosition - 2;
+            } else if (valueIsInArray(board[(rowPosition - i)*8 + columnPosition],eatingRange,6)) {
+                // Store (since we can move there) and end the cycle (it's the last place where we will be able to move)
+                allowedMoves[count - 2] = rowPosition - i;
+                allowedMoves[count - 1] = columnPosition;
                 count += 2;
                 allowedMoves[0] = count;
                 /* Declare a temporary variable storing the value of our array of interest */
@@ -82,14 +68,17 @@ int * calculateAllowedMovesKnight(int rows, int cols, int *board, int rowPositio
                 } else {
                     /* Memory re-allocation is sucessful */
                 }
+                break;
+            } else {
+                break;
             }
-        }
-        // Spot 3
-        if (rowPosition + 2 <= 7 && columnPosition +1 <= 7) {
-            if (board[rowPosition*8 + columnPosition + 17] == 0 || valueIsInArray(board[rowPosition*8 + columnPosition + 17], eatingRange, 6)) {
+        } 
+        // 2) Down
+        for (int i = 1; i <= 7 - rowPosition; i++) {
+            if (board[(rowPosition + i)*8 + columnPosition] == 0 ) {
                 // Store position in our array and then reallocate memory for other possible positions.
-                allowedMoves[count - 2] = rowPosition + 2;
-                allowedMoves[count - 1] = columnPosition +1;
+                allowedMoves[count - 2] = rowPosition + i;
+                allowedMoves[count - 1] = columnPosition;
                 count += 2;
                 allowedMoves[0] = count;
                 /* Declare a temporary variable storing the value of our array of interest */
@@ -101,14 +90,10 @@ int * calculateAllowedMovesKnight(int rows, int cols, int *board, int rowPositio
                 } else {
                     /* Memory re-allocation is sucessful */
                 }
-            }
-        }
-        // Spot 4
-        if (rowPosition + 2 <= 7 && columnPosition - 1 >= 0) {
-            if (board[rowPosition*8 + columnPosition + 15] == 0 || valueIsInArray(board[rowPosition*8 + columnPosition + 15], eatingRange, 6)) {
-                // Store position in our array and then reallocate memory for other possible positions.
-                allowedMoves[count - 2] = rowPosition + 2;
-                allowedMoves[count - 1] = columnPosition - 1;
+            } else if (valueIsInArray(board[(rowPosition + i)*8 + columnPosition],eatingRange,6)) {
+                // Store (since we can move there) and end the cycle (it's the last place where we will be able to move)
+                allowedMoves[count - 2] = rowPosition + i;
+                allowedMoves[count - 1] = columnPosition;
                 count += 2;
                 allowedMoves[0] = count;
                 /* Declare a temporary variable storing the value of our array of interest */
@@ -120,14 +105,17 @@ int * calculateAllowedMovesKnight(int rows, int cols, int *board, int rowPositio
                 } else {
                     /* Memory re-allocation is sucessful */
                 }
+                break;
+            } else {
+                break;
             }
-        }
-        // Spot 5
-        if (rowPosition - 1 >= 0 && columnPosition + 2 <= 7) {
-            if (board[rowPosition*8 + columnPosition - 6] == 0 || valueIsInArray(board[rowPosition*8 + columnPosition - 6], eatingRange, 6)) {
+        } 
+        // 3) Right
+        for (int i = 1; i <= 7- columnPosition ; i++) {
+            if (board[rowPosition*8 + columnPosition + i] == 0 ) {
                 // Store position in our array and then reallocate memory for other possible positions.
-                allowedMoves[count - 2] = rowPosition - 1;
-                allowedMoves[count - 1] = columnPosition + 2;
+                allowedMoves[count - 2] = rowPosition;
+                allowedMoves[count - 1] = columnPosition + i;
                 count += 2;
                 allowedMoves[0] = count;
                 /* Declare a temporary variable storing the value of our array of interest */
@@ -139,14 +127,10 @@ int * calculateAllowedMovesKnight(int rows, int cols, int *board, int rowPositio
                 } else {
                     /* Memory re-allocation is sucessful */
                 }
-            }
-        }
-        // Spot 6
-        if (rowPosition - 1 >= 0 && columnPosition - 2 >= 0) {
-            if (board[rowPosition*8 + columnPosition - 10] == 0 || valueIsInArray(board[rowPosition*8 + columnPosition - 10], eatingRange, 6)) {
-                // Store position in our array and then reallocate memory for other possible positions.
-                allowedMoves[count - 2] = rowPosition - 1;
-                allowedMoves[count - 1] = columnPosition - 2;
+            } else if (valueIsInArray(board[rowPosition*8 + columnPosition + i],eatingRange,6)) {
+                // Store (since we can move there) and end the cycle (it's the last place where we will be able to move)
+                allowedMoves[count - 2] = rowPosition;
+                allowedMoves[count - 1] = columnPosition + i;
                 count += 2;
                 allowedMoves[0] = count;
                 /* Declare a temporary variable storing the value of our array of interest */
@@ -158,14 +142,16 @@ int * calculateAllowedMovesKnight(int rows, int cols, int *board, int rowPositio
                 } else {
                     /* Memory re-allocation is sucessful */
                 }
+                break;
+            } else {
+                break;
             }
-        }
-        // Spot 7
-        if (rowPosition - 2 >= 0 && columnPosition + 1 <= 7) {
-            if (board[rowPosition*8 + columnPosition - 15] == 0 || valueIsInArray(board[rowPosition*8 + columnPosition - 15], eatingRange, 6)) {
+        } 
+        for (int i = 1; i <= columnPosition ; i++) {
+            if (board[rowPosition*8 + columnPosition - i] == 0 ) {
                 // Store position in our array and then reallocate memory for other possible positions.
-                allowedMoves[count - 2] = rowPosition - 2;
-                allowedMoves[count - 1] = columnPosition + 1;
+                allowedMoves[count - 2] = rowPosition;
+                allowedMoves[count - 1] = columnPosition - i;
                 count += 2;
                 allowedMoves[0] = count;
                 /* Declare a temporary variable storing the value of our array of interest */
@@ -177,14 +163,10 @@ int * calculateAllowedMovesKnight(int rows, int cols, int *board, int rowPositio
                 } else {
                     /* Memory re-allocation is sucessful */
                 }
-            }
-        }
-        // Spot 8
-        if (rowPosition - 2 >= 0 && columnPosition - 1 >= 0) {
-            if (board[rowPosition*8 + columnPosition - 17] == 0 || valueIsInArray(board[rowPosition*8 + columnPosition - 17], eatingRange, 6)) {
-                // Store position in our array and then reallocate memory for other possible positions.
-                allowedMoves[count - 2] = rowPosition - 2;
-                allowedMoves[count - 1] = columnPosition - 1;
+            } else if (valueIsInArray(board[rowPosition*8 + columnPosition - i],eatingRange,6)) {
+                // Store (since we can move there) and end the cycle (it's the last place where we will be able to move)
+                allowedMoves[count - 2] = rowPosition;
+                allowedMoves[count - 1] = columnPosition - i;
                 count += 2;
                 allowedMoves[0] = count;
                 /* Declare a temporary variable storing the value of our array of interest */
@@ -196,10 +178,11 @@ int * calculateAllowedMovesKnight(int rows, int cols, int *board, int rowPositio
                 } else {
                     /* Memory re-allocation is sucessful */
                 }
+                break;
+            } else {
+                break;
             }
-        }
+        } 
     }
-    // Return the array of allowed positions for our knight.
-	// It will be of the following form: [rowplace1,columnplace1,rowplace2,columnplace2, ...]
     return allowedMoves;
 }
