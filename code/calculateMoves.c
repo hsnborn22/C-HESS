@@ -9,6 +9,7 @@ int * calculateAllowedMovesBlackPawn(int rows, int cols, int *board, int rowPosi
 int * calculateAllowedMovesKnight(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
 int * calculateAllowedMovesTower(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
 int * calculateAllowedMovesBishop(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
+int * calculateAllowedMovesQueen(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
 
 
 // Function to calculate the moves for an undetermined piece
@@ -32,6 +33,10 @@ int * calculateMovesPiece(int rows, int cols, int *board, int rowPosition, int c
         case 4:
             arrayMoves = calculateAllowedMovesBishop(8,8,board, rowPosition, columnPosition, 4);
             break;
+        // Check if the piece is a white queen; if so we use the function coded in queen.c to compute the allowed moves.
+        case 5:
+            arrayMoves = calculateAllowedMovesQueen(8,8,board, rowPosition, columnPosition, 5);
+            break;
         // Check if the piece is a black pawn; if so, the list of possible moves is returned by the function defined in blackPawn.c
         case 7:
             arrayMoves = calculateAllowedMovesBlackPawn(8,8,board,rowPosition, columnPosition);
@@ -47,6 +52,10 @@ int * calculateMovesPiece(int rows, int cols, int *board, int rowPosition, int c
         // Check if the piece is a black bishop; if so we use the function coded in bishop.c to compute the allowed moves.
         case 10:
             arrayMoves = calculateAllowedMovesBishop(8,8,board, rowPosition, columnPosition, 10);
+            break;
+        // Check if the piece is a black queen; if so we use the function coded in queen.c to compute the allowed moves.
+        case 11:
+            arrayMoves = calculateAllowedMovesQueen(8,8,board, rowPosition, columnPosition, 11);
             break;
     }
     // We return the arrayMoves array (containing all the possible moves) to the caller.
