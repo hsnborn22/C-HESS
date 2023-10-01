@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #define UNDEFINED_VALUE 8001
 
-/* Function to calculate all possible moves for a white pawn in a determined position */
+/* Function to calculate all possible moves for a black pawn in a determined position */
 
 int * calculateAllowedMovesBlackPawn(int rows, int cols, int *board, int rowPosition, int columnPosition) {
     int count = 2;

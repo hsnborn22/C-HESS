@@ -1,8 +1,11 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 void printBoard(int rows, int cols, int *board);
+int valueIsInArray(int value, int *arr, int length);
 int * calculateAllowedMovesWhitePawn(int rows, int cols, int *board, int rowPosition, int columnPosition);
 int * calculateAllowedMovesBlackPawn(int rows, int cols, int *board, int rowPosition, int columnPosition);
+int * calculateAllowedMovesKnight(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
 
 /*  ------------  Pieces notation: ------------
 1 -> white pawn          | 7 -->  black pawn
@@ -26,7 +29,7 @@ int main(void) {
 	};
 	printBoard(8,8, board[0]);
 	int * ourArray = calculateAllowedMovesWhitePawn(8,8, board[0], 6, 3);
-	for (int i = 0; i < 8; i++) {
+	for (int i = 0; i < 4; i++) {
         printf("%d", ourArray[i]);
 	}
 	free(ourArray);
