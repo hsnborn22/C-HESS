@@ -18,7 +18,7 @@ int * calculateAllowedMovesPawn(int rows, int cols, int *board, int rowPosition,
     } else {
         /* Memory allocation is successful. */
     }
-    /* Check if the piece in the passed position is actually a pawn (recall the pawn piece code is 1)*/
+    /* Check if the piece in the passed position is actually a pawn (recall the pawn piece code is 1 or 7 (depending if it is white or black))*/
 	if (board[rowPosition*8 + columnPosition] == code) {
         int eatingRange[6];
         int jumpValue, initialPos;
@@ -42,7 +42,7 @@ int * calculateAllowedMovesPawn(int rows, int cols, int *board, int rowPosition,
             initialPos = 1;     
         }
         /* For our pawn we have at most 4 possible spots to move in (ignoring en passant for now) */
-        /* Spot 1: move one vertical unit towards the bottom*/
+        /* Spot 1: move one vertical unit towards the bottom/top*/
         // If spot is empty, we can move
         if (board[(rowPosition+ jumpValue)*8 + columnPosition] == 0 ) {
             allowedMoves[count - 2] = rowPosition + jumpValue;
@@ -59,7 +59,7 @@ int * calculateAllowedMovesPawn(int rows, int cols, int *board, int rowPosition,
                 /* Memory re-allocation is sucessful */
             }
         }
-        /* Spot 2: move one vertical unit towards the bottom and one horizontal unit to the right*/
+        /* Spot 2: move one vertical unit towards the bottom/top and one horizontal unit to the right*/
         // If spot is populated by an enemy piece, we can move and eat.
         if (valueIsInArray(board[(rowPosition+jumpValue)*8 + columnPosition + 1],eatingRange, 6) ) {
             allowedMoves[count - 2] = rowPosition + jumpValue;
@@ -76,7 +76,7 @@ int * calculateAllowedMovesPawn(int rows, int cols, int *board, int rowPosition,
                 /* Memory re-allocation is sucessful */
             }
         }
-        /* Spot 3: move one vertical unit towards the bottom and one horizontal unit to the left*/
+        /* Spot 3: move one vertical unit towards the bottom/top and one horizontal unit to the left*/
         // If spot is populated by an enemy piece, we can move and eat.
         if (valueIsInArray(board[(rowPosition + jumpValue)*8 + columnPosition - 1],eatingRange,6)) {
             allowedMoves[count - 2] = rowPosition + jumpValue;
@@ -94,7 +94,7 @@ int * calculateAllowedMovesPawn(int rows, int cols, int *board, int rowPosition,
             }
         }
         /* Spot 4: only check if we have never moved the pawn in the game (i.e if it is at starting position index 6)*/
-        // Move 2 vertical units downwards.
+        // Move 2 vertical units downwards/upwards.
 		if (rowPosition == initialPos) {
 			if (board[(rowPosition + 2*jumpValue)*8 + columnPosition ] == 0 ) {
                 allowedMoves[count - 2] = rowPosition + (2*jumpValue);
