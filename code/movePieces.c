@@ -6,8 +6,7 @@
 
 void printBoard(int rows, int cols, int *board);
 int valueIsInArray(int value, int *arr, int length);
-int * calculateAllowedMovesWhitePawn(int rows, int cols, int *board, int rowPosition, int columnPosition);
-int * calculateAllowedMovesBlackPawn(int rows, int cols, int *board, int rowPosition, int columnPosition);
+int * calculateAllowedMovesPawn(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
 int * calculateAllowedMovesKnight(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
 
 // Logic for allowed permutations of the chessboard

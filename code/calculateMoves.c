@@ -4,8 +4,7 @@
 
 void printBoard(int rows, int cols, int *board);
 int valueIsInArray(int value, int *arr, int length);
-int * calculateAllowedMovesWhitePawn(int rows, int cols, int *board, int rowPosition, int columnPosition);
-int * calculateAllowedMovesBlackPawn(int rows, int cols, int *board, int rowPosition, int columnPosition);
+int * calculateAllowedMovesPawn(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
 int * calculateAllowedMovesKnight(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
 int * calculateAllowedMovesTower(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
 int * calculateAllowedMovesBishop(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
@@ -20,7 +19,7 @@ int * calculateMovesPiece(int rows, int cols, int *board, int rowPosition, int c
     switch(code) {
         // Check if the piece is a white pawn; if so, the list of possible moves is returned by the function defined in whitePawn.c
         case 1:
-            arrayMoves = calculateAllowedMovesWhitePawn(8,8,board,rowPosition, columnPosition);
+            arrayMoves = calculateAllowedMovesPawn(8,8,board,rowPosition, columnPosition, 1);
             break;
         // Check if the piece is a white tower; if so, the list of possible moves is returned by the function coded in tower.c
         case 2:
@@ -44,7 +43,7 @@ int * calculateMovesPiece(int rows, int cols, int *board, int rowPosition, int c
             break;
         // Check if the piece is a black pawn; if so, the list of possible moves is returned by the function defined in blackPawn.c
         case 7:
-            arrayMoves = calculateAllowedMovesBlackPawn(8,8,board,rowPosition, columnPosition);
+            arrayMoves = calculateAllowedMovesPawn(8,8,board,rowPosition, columnPosition, 7);
             break;
         // Check if the piece is a black tower; if so, the list of possible moves is returned by the function coded in tower.c
         case 8:

@@ -3,13 +3,15 @@
 
 void printBoard(int rows, int cols, int *board);
 int valueIsInArray(int value, int *arr, int length);
-int * calculateAllowedMovesWhitePawn(int rows, int cols, int *board, int rowPosition, int columnPosition);
-int * calculateAllowedMovesBlackPawn(int rows, int cols, int *board, int rowPosition, int columnPosition);
+int * calculateAllowedMovesPawn(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
 int * calculateAllowedMovesKnight(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
 int * calculateAllowedMovesTower(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
 int * calculateMovesPiece(int rows, int cols, int *board, int rowPosition, int columnPosition, int code);
 int checkIfMoveIsIn(int rowpos, int columnpos, int *moves, int movesLength);
 void movePiece(int initRow, int initColumn, int endRow, int endColumn, int * board, int code);
+int lookForWhiteCheck(int rows, int cols, int *board);
+int lookForBlackCheck(int rows, int cols, int *board);
+
 
 /*  ------------  Pieces notation: ------------
 1 -> white pawn          | 7 -->  black pawn
@@ -31,16 +33,11 @@ int main(void) {
 	{1,1,1,1,1,1,1,1},
 	{2,3,4,5,6,4,3,2}
 	};
-	int * ourArray = calculateAllowedMovesWhitePawn(8,8, board[0], 6, 3);
-	int *array2 = calculateAllowedMovesKnight(8,8, board[0], 7, 1, 3);
-	for (size_t i = 0; i < 4; i++) {
-		printf("%d", array2[i]);
-	}
-	free(array2);
-	free(ourArray);
 	int i1,i2,j1,j2;
 	while (1) {
 		printBoard(8,8, board[0]);
+		printf("White Check: %d \n", lookForWhiteCheck(8,8,board[0]));
+		printf("Black Check: %d \n", lookForBlackCheck(8,8,board[0]));
 		printf("Insert next move: \n");
 		scanf("%1d%1d %1d%1d", &i1,&i2,&j1,&j2);
 		printf("i1 is: %d i2 is: %d j1 is: %d j2 is: %d \n",i1,i2,j1,j2);

@@ -19,14 +19,14 @@ int * calculateAllowedMovesKing(int rows, int cols, int *board, int rowPosition,
     /* Check if the piece in the position passed is a king (code 6 or 12)*/
     if (board[rowPosition * 8 + columnPosition] == code) {
         int eatingRange[6];
-        if (code == 4) {
+        if (code == 6) {
             eatingRange[0] = 7;
             eatingRange[1] = 8;
             eatingRange[2] = 9;
             eatingRange[3] = 10;
             eatingRange[4] = 11;
             eatingRange[5] = 12;
-        } else if (code == 10) {
+        } else if (code == 12) {
             eatingRange[0] = 1;
             eatingRange[1] = 2;
             eatingRange[2] = 3;
