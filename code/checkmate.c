@@ -27,12 +27,6 @@ int *calculateAllEnemyMoves(int rows, int cols, int *board, int team) {
 int lookForWhiteCheck(int rows, int cols, int *board) {
     int kingRow, kingColumn;
     int count = 1;
-    int * totalMoves = (int*)malloc(sizeof(int)*count);
-    if (totalMoves == NULL) {
-        /* Memory allocation failed */
-        exit(0);
-    }
-    totalMoves[0] = count;
     // First loop: look for king position in the board
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
@@ -50,23 +44,16 @@ int lookForWhiteCheck(int rows, int cols, int *board) {
                 int arraySize = possibleMoves[0] -2;
                 if (checkIfMoveIsIn(kingRow, kingColumn, possibleMoves, arraySize)) {
                     return 1;
-                } else {
-                    return 0;
                 }
             }
         }
     }
+    return 0;
 }
 
 int lookForBlackCheck(int rows, int cols, int *board) {
     int kingRow, kingColumn;
     int count = 1;
-    int * totalMoves = (int*)malloc(sizeof(int)*count);
-    if (totalMoves == NULL) {
-        /* Memory allocation failed */
-        exit(0);
-    }
-    totalMoves[0] = count;
     // First loop: look for king position in the board
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
@@ -84,10 +71,9 @@ int lookForBlackCheck(int rows, int cols, int *board) {
                 int arraySize = possibleMoves[0] -2;
                 if (checkIfMoveIsIn(kingRow, kingColumn, possibleMoves, arraySize)) {
                     return 1;
-                } else {
-                    return 0;
                 }
             }
         }
     }
+    return 0;
 }
