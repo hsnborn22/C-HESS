@@ -1,6 +1,6 @@
 Remaining things to do:
 - checkmate logic (Partially done)
 - refactor the memory management code
-- add a turn system
 - add some more commands
-- polish the user interface
+- polish the user interface ( ##-------- 20% done)
+- add an online mode via socket programming 
