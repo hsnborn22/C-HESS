@@ -18,6 +18,50 @@ int lookForWhiteCheck(int rows, int cols, int *board);
 int lookForBlackCheck(int rows, int cols, int *board);
 void generateMenu();
 
+char intToChar(int value) {
+    switch(value) {
+        case 0:
+            return '0';
+            break;
+        case 1:
+            return '1';
+            break;
+        case 2:
+            return '2';
+            break;
+        case 3:
+            return '3';
+            break;
+        case 4:
+            return '4';
+            break;
+        case 5:
+            return '5';
+            break;
+        case 6:
+            return '6';
+            break;
+        case 7:
+            return '7';
+            break;
+        case 8:
+            return '8';
+            break;
+        case 9:
+            return '9';
+            break;
+        case 10:
+            return 'a';
+            break;
+        case 11:
+            return 'b';
+            break;
+        case 12:
+            return 'c';
+            break;
+    }
+}
+
 void error(const char *msg) {
     perror(msg);
     exit(1);
@@ -50,6 +94,8 @@ int main(int argc, char *argv[]) {
         error("Binding failed");
     }
 
+
+
     listen(sockfd, 5);
     clilen = sizeof(cli_addr);
 
@@ -71,8 +117,14 @@ int main(int argc, char *argv[]) {
 	};
 	int i1,i2,j1,j2;
 	int turn = 0;
+    char str[64];
  S :   
-    n = write(newsockfd, "Enter move: ", strlen("Enter move: "));
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            str[i * 8 + j] = intToChar(board[i][j]);
+        }
+    }
+    n = write(newsockfd, str, strlen(str));
     
     if (n< 0) error("Error writing to socket.");
     printBoard(8,8, board[0]);

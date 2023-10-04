@@ -33,6 +33,56 @@ void error(const char *msg) {
     exit(0);
 }
 
+void printBuffer(char buffer[]) {
+    for (int i = 0; i < 8; i++) {
+        printf("\t \t");
+        for (int j = 0; j < 8; j++) {
+            switch(buffer[i*8 + j]) {
+                case '0':
+                    printf("|  |");
+                    break;
+                case '1':
+                    printf("|♙ |");
+                    break;
+                case '2':
+                    printf("|♖ |");
+                    break;
+                case '3':
+                    printf("|♘ |");
+                    break;
+                case '4':
+                    printf("|♗ |");
+                    break;
+                case '5':
+                    printf("|♕ |");
+                    break;
+                case '6':
+                    printf("|♔ |");
+                    break;
+                case '7':
+                    printf("|♟ ︎|");
+                    break;
+                case '8':
+                    printf("|♜ |");
+                    break;
+                case '9':
+                    printf("|♞ |");
+                    break;
+                case 'a':
+                    printf("|♝ |");
+                    break;
+                case 'b':
+                    printf("|♛ |");
+                    break;
+                case 'c':
+                    printf("|♚ |");
+                    break;
+            }
+        }
+        printf("\n");
+    }
+}
+
 
 int main(int argc, char *argv[]) {
     int sockfd, portno, n;
@@ -68,8 +118,12 @@ int main(int argc, char *argv[]) {
     n = read(sockfd, buffer, 255);
     if (n <0) error("Error reading from socket");
     printf("Server - %s\n", buffer);
+    printBuffer(buffer);
+
+    // Need to exchange board array via socket
     printf("Enter next move:");
     scanf("%1d%1d %1d%1d", &i1, &i2, &j1, &j2);
+    
     write(sockfd, &i1, sizeof(int));
     write(sockfd, &i2, sizeof(int));
     write(sockfd, &j1, sizeof(int));
