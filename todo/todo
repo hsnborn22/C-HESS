@@ -3,4 +3,4 @@ Remaining things to do:
 - refactor the memory management code
 - add some more commands
 - polish the user interface ( ##-------- 20% done)
-- add an online mode via socket programming 
+- fix server-client communication bugs (app works fine if both parts "behave well", but error handling is not implemented efficiently).
