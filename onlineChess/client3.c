@@ -117,17 +117,26 @@ int main(int argc, char *argv[]) {
     bzero(buffer, 255);
     n = read(sockfd, buffer, 255);
     if (n <0) error("Error reading from socket");
-    printf("Server - %s\n", buffer);
     printBuffer(buffer);
+    printf("White Check: %d \n", buffer[65]);
+	printf("Black Check: %d \n", buffer[66]);
+	printf("Turn: %d \n", buffer[64]);
 
     // Need to exchange board array via socket
     printf("Enter next move:");
     scanf("%1d%1d %1d%1d", &i1, &i2, &j1, &j2);
-    
     write(sockfd, &i1, sizeof(int));
     write(sockfd, &i2, sizeof(int));
     write(sockfd, &j1, sizeof(int));
     write(sockfd, &j2, sizeof(int));
+
+    bzero(buffer, 255);
+    n = read(sockfd, buffer, 255);
+    if (n < 0) error("Error");
+    printBuffer(buffer);
+    printf("White Check: %d \n", buffer[65]);
+	printf("Black Check: %d \n", buffer[66]);
+	printf("Turn: %d \n", buffer[64]);
 
 
     goto S;

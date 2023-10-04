@@ -117,13 +117,16 @@ int main(int argc, char *argv[]) {
 	};
 	int i1,i2,j1,j2;
 	int turn = 0;
-    char str[64];
+    char str[67];
  S :   
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
             str[i * 8 + j] = intToChar(board[i][j]);
         }
     }
+    str[64] = turn;
+    str[65] = lookForWhiteCheck(8,8, board[0]);
+    str[66] = lookForBlackCheck(8,8,board[0]);
     n = write(newsockfd, str, strlen(str));
     
     if (n< 0) error("Error writing to socket.");
@@ -164,6 +167,19 @@ int main(int argc, char *argv[]) {
         }
     }
     printBoard(8,8,board[0]);
+    printf("White Check: %d \n", lookForWhiteCheck(8,8,board[0]));
+    printf("Black Check: %d \n", lookForBlackCheck(8,8,board[0]));
+    printf("Turn: %d \n", turn);
+    printf("Insert next move: \n");
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            str[i * 8 + j] = intToChar(board[i][j]);
+        }
+    }
+    str[64] = turn;
+    str[65] = lookForWhiteCheck(8,8, board[0]);
+    str[66] = lookForBlackCheck(8,8,board[0]);
+    n = write(newsockfd, str, strlen(str));
 
     int k1,k2,l1,l2;
     scanf("%1d%1d %1d%1d", &k1,&k2,&l1,&l2);
