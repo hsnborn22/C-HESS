@@ -11,6 +11,7 @@ int checkIfMoveIsIn(int rowpos, int columnpos, int *moves, int movesLength);
 void movePiece(int initRow, int initColumn, int endRow, int endColumn, int * board, int code, int * turn);
 int lookForWhiteCheck(int rows, int cols, int *board);
 int lookForBlackCheck(int rows, int cols, int *board);
+void copyArray(int * arrayToCopy, int * copyingArray, int arrayToCopyLength);
 void generateMenu();
 
 
@@ -79,7 +80,36 @@ int main(void) {
 				int *possibleMoves = calculateMovesPiece(8, 8, board[0], i1, i2, pieceCode);
 				int lengthMovesArr = possibleMoves[0] - 2;
 				if (checkIfMoveIsIn(j1,j2,possibleMoves,lengthMovesArr)) {
-					movePiece(i1,i2,j1,j2,board[0],pieceCode, &turn);
+					if (turn == 0 && lookForWhiteCheck(8,8,board[0])) {
+						int temp[8][8];
+						// implement copy function
+						copyArray(board[0],temp[0],64);
+						movePiece(i1,i2,j1,j2,temp[0],pieceCode, &turn);
+						if (lookForWhiteCheck(8,8,temp[0])) {
+							printf("You have to exit the check \n");
+							turn--;
+						} else {
+							turn--;
+							movePiece(i1,i2,j1,j2,board[0],pieceCode, &turn);
+
+						}
+					} else if (turn == 1 && lookForBlackCheck(8,8,board[0])) {
+						int temp[8][8];
+						copyArray(board[0],temp[0],64);
+						movePiece(i1,i2,j1,j2,temp[0],pieceCode, &turn);
+						if (lookForBlackCheck(8,8,temp[0])) {
+							printf("You have to exit the check \n");
+							turn++;
+						} else {
+							turn++;
+							movePiece(i1,i2,j1,j2,board[0],pieceCode, &turn);
+
+						}
+
+					} else {
+						movePiece(i1,i2,j1,j2,board[0],pieceCode, &turn);
+
+					}
 				} else {
 					printf("The inserted move is not allowed!\n");
 				}
