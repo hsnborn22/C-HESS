@@ -3,6 +3,8 @@
 ### What is C-HESS?
 C-HESS is a terminal application with a pseudo-GUI that allows you to play chess alone and online via tcp/ip socket communication.
 
+![Game preview](/images/game1.png)
+
 ### How to install and run C-HESS:
 
 To install and run C-HESS, first download the code in the repo by clicking the green button "code" and then the button "download zip".
@@ -31,3 +33,5 @@ gcc bishop.c chess.c movePieces.c printBoard.c tower.c calculateMoves.c methods.
 ./chess
 ```
 in the terminal and you should be ready to go. You should now see the application main menu in the terminal
+
+![Menu page](/images/menu.png)
