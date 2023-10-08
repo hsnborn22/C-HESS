@@ -69,14 +69,14 @@ xy x'y'
 where x is the initial row, y is the inital column, x' is the ending row and y' is the ending column. 
 Let's make an example: suppose we have the board
 ```
-	 	 |♜ ||♞ ||♝ ||♛ ||♚ ||♝ ||♞ ||♜ |
-	 	 |♟ ︎||♟ ︎||♟ ︎||♟ ︎||♟ ︎||♟ ︎||♟ ︎||♟ ︎|
-	 	 |  ||  ||  ||  ||  ||  ||  ||  |
-	 	 |  ||  ||  ||  ||  ||  ||  ||  |
-	 	 |  ||  ||  ||  ||  ||  ||  ||  |
-	 	 |  ||  ||  ||  ||  ||  ||  ||  |
-	 	 |♙ ||♙ ||♙ ||♙ ||♙ ||♙ ||♙ ||♙ |
-	 	 |♖ ||♘ ||♗ ||♕ ||♔ ||♗ ||♘ ||♖ |
+			 	 |♜ ||♞ ||♝ ||♛ ||♚ ||♝ ||♞ ||♜ |
+			 	 |♟ ︎||♟ ︎||♟ ︎||♟ ︎||♟ ︎||♟ ︎||♟ ︎||♟ ︎|
+			 	 |  ||  ||  ||  ||  ||  ||  ||  |
+			 	 |  ||  ||  ||  ||  ||  ||  ||  |
+			 	 |  ||  ||  ||  ||  ||  ||  ||  |
+			 	 |  ||  ||  ||  ||  ||  ||  ||  |
+			 	 |♙ ||♙ ||♙ ||♙ ||♙ ||♙ ||♙ ||♙ |
+			 	 |♖ ||♘ ||♗ ||♕ ||♔ ||♗ ||♘ ||♖ |
 ```
 and we want to move the 4th black pawn 2 units forwards. As we said earlier, the pawn is univocally determined by a couplet [row,column]. In this case row = 6 because our pawn is a distance of 6 blocks away from the top corner of the board, and the column = 3 because the pawn is at a distance of 3 units from the left corner of the board. To move our piece we will then use the command
 ```
@@ -84,14 +84,14 @@ and we want to move the 4th black pawn 2 units forwards. As we said earlier, the
 ```
 The result of this move will be
 ```
-	 	 |♜ ||♞ ||♝ ||♛ ||♚ ||♝ ||♞ ||♜ |
-	 	 |♟ ︎||♟ ︎||♟ ︎||♟ ︎||♟ ︎||♟ ︎||♟ ︎||♟ ︎|
-	 	 |  ||  ||  ||  ||  ||  ||  ||  |
-	 	 |  ||  ||  ||  ||  ||  ||  ||  |
-	 	 |  ||  ||  ||♙ ||  ||  ||  ||  |
-	 	 |  ||  ||  ||  ||  ||  ||  ||  |
-	 	 |♙ ||♙ ||♙ ||  ||♙ ||♙ ||♙ ||♙ |
-	 	 |♖ ||♘ ||♗ ||♕ ||♔ ||♗ ||♘ ||♖ |
+			 	 |♜ ||♞ ||♝ ||♛ ||♚ ||♝ ||♞ ||♜ |
+			 	 |♟ ︎||♟ ︎||♟ ︎||♟ ︎||♟ ︎||♟ ︎||♟ ︎||♟ ︎|
+			 	 |  ||  ||  ||  ||  ||  ||  ||  |
+			 	 |  ||  ||  ||  ||  ||  ||  ||  |
+			 	 |  ||  ||  ||♙ ||  ||  ||  ||  |
+			 	 |  ||  ||  ||  ||  ||  ||  ||  |
+			 	 |♙ ||♙ ||♙ ||  ||♙ ||♙ ||♙ ||♙ |
+			 	 |♖ ||♘ ||♗ ||♕ ||♔ ||♗ ||♘ ||♖ |
 ```
 
 
