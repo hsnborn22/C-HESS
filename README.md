@@ -28,7 +28,6 @@ gcc bishop.c chess.c movePieces.c printBoard.c tower.c calculateMoves.c methods.
 ```
 You should now have a binary compiled version of the program in your directory, regardless of the approach you took for the last step. If that is the case, then just type
 
-gcc bishop.c chess.c movePieces.c printBoard.c tower.c calculateMoves.c methods.c king.c queen.c checkmate.c knight.c pawn.c printMenu.c -o organized
 ```
 ./chess
 ```
