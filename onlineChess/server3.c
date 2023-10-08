@@ -16,6 +16,7 @@ int checkIfMoveIsIn(int rowpos, int columnpos, int *moves, int movesLength);
 void movePiece(int initRow, int initColumn, int endRow, int endColumn, int * board, int code, int * turn);
 int lookForWhiteCheck(int rows, int cols, int *board);
 int lookForBlackCheck(int rows, int cols, int *board);
+void copyArray(int *arrayToCopy, int * copyingArray, int arrayToCopyLength);
 void generateMenu();
 
 char intToChar(int value) {
@@ -118,7 +119,7 @@ int main(int argc, char *argv[]) {
 	int i1,i2,j1,j2;
 	int turn = 0;
     char str[67];
- S :   
+  S:   
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
             str[i * 8 + j] = intToChar(board[i][j]);
@@ -135,37 +136,68 @@ int main(int argc, char *argv[]) {
     printf("Black Check: %d \n", lookForBlackCheck(8,8,board[0]));
     printf("Turn: %d \n", turn);
     printf("Insert next move: \n");
+
     read(newsockfd, &i1, sizeof(int));
     read(newsockfd, &i2, sizeof(int));
     read(newsockfd, &j1, sizeof(int));
     read(newsockfd, &j2, sizeof(int));
 
     if (i1 > 7 || i2 > 7 || j1 > 7 || j2 > 7) {
-        printf("Position values not valid: they lie outside the board \n");
-        goto S;
-    } else if (board[i1][i2] == 0) {
-        printf("There is no piece in position [%d,%d] \n",i1,i2);
-        goto S;
-    } else {
-        int pieceCode = board[i1][i2];
-        if (turn == 0 && pieceCode >= 7) {
-            printf("It's white's turn, can't move black pieces.\n");
+			printf("Position values not valid: they lie outside the board \n");
             goto S;
-        } else if (turn == 1 && pieceCode < 7) {
-            printf("It's black's turn, can't move white pieces.\n");
+		} else if (board[i1][i2] == 0) {
+			printf("There is no piece in position [%d,%d] \n",i1,i2);
             goto S;
-        } else {
-            int *possibleMoves = calculateMovesPiece(8, 8, board[0], i1, i2, pieceCode);
-            int lengthMovesArr = possibleMoves[0] - 2;
-            if (checkIfMoveIsIn(j1,j2,possibleMoves,lengthMovesArr)) {
-                movePiece(i1,i2,j1,j2,board[0],pieceCode, &turn);
-            } else {
-                printf("The inserted move is not allowed!\n");
+		} else {
+			int pieceCode = board[i1][i2];
+			if (turn == 0 && pieceCode >= 7) {
+				printf("It's white's turn, can't move black pieces.\n");
                 goto S;
-            }
-            free(possibleMoves);
-        }
-    }
+			} else if (turn == 1 && pieceCode < 7) {
+				printf("It's black's turn, can't move white pieces.\n");
+                goto S;
+			} else {
+				int *possibleMoves = calculateMovesPiece(8, 8, board[0], i1, i2, pieceCode);
+				int lengthMovesArr = possibleMoves[0] - 2;
+				if (checkIfMoveIsIn(j1,j2,possibleMoves,lengthMovesArr)) {
+					if (turn == 0 && lookForWhiteCheck(8,8,board[0])) {
+						int temp[8][8];
+						// implement copy function
+						copyArray(board[0],temp[0],64);
+						movePiece(i1,i2,j1,j2,temp[0],pieceCode, &turn);
+						if (lookForWhiteCheck(8,8,temp[0])) {
+							printf("You have to exit the check \n");
+							turn--;
+                            goto S;
+						} else {
+							turn--;
+							movePiece(i1,i2,j1,j2,board[0],pieceCode, &turn);
+						}
+					} else if (turn == 1 && lookForBlackCheck(8,8,board[0])) {
+						int temp[8][8];
+						copyArray(board[0],temp[0],64);
+						movePiece(i1,i2,j1,j2,temp[0],pieceCode, &turn);
+						if (lookForBlackCheck(8,8,temp[0])) {
+							printf("You have to exit the check \n");
+							turn++;
+                            goto S;
+						} else {
+							turn++;
+							movePiece(i1,i2,j1,j2,board[0],pieceCode, &turn);
+
+						}
+
+					} else {
+						movePiece(i1,i2,j1,j2,board[0],pieceCode, &turn);
+					}
+				} else {
+					printf("The inserted move is not allowed!\n");
+                    goto S;
+				}
+				free(possibleMoves);
+			}
+		}
+    P: 
     printBoard(8,8,board[0]);
     printf("White Check: %d \n", lookForWhiteCheck(8,8,board[0]));
     printf("Black Check: %d \n", lookForBlackCheck(8,8,board[0]));
@@ -184,27 +216,62 @@ int main(int argc, char *argv[]) {
     int k1,k2,l1,l2;
     scanf("%1d%1d %1d%1d", &k1,&k2,&l1,&l2);
     if (k1 > 7 || k2 > 7 || l1 > 7 || l2 > 7) {
-        printf("Position values not valid: they lie outside the board \n");
-    } else if (board[k1][k2] == 0) {
-        printf("There is no piece in position [%d,%d] \n",k1,k2);
-    } else {
-        int pieceCode = board[k1][k2];
-        if (turn == 0 && pieceCode >= 7) {
-            printf("It's white's turn, can't move black pieces.\n");
-        } else if (turn == 1 && pieceCode < 7) {
-            printf("It's black's turn, can't move white pieces.\n");
-        } else {
-            int *possibleMoves = calculateMovesPiece(8, 8, board[0], k1, k2, pieceCode);
-            int lengthMovesArr = possibleMoves[0] - 2;
-            if (checkIfMoveIsIn(l1,l2,possibleMoves,lengthMovesArr)) {
-                movePiece(k1,k2,l1,l2,board[0],pieceCode, &turn);
-            } else {
-                printf("The inserted move is not allowed!\n");
-            }
-            free(possibleMoves);
-        }
-    }
+			printf("Position values not valid: they lie outside the board \n");
+            goto P;
+		} else if (board[k1][k2] == 0) {
+			printf("There is no piece in position [%d,%d] \n",k1,k2);
+            goto P;
+		} else {
+			int pieceCode = board[k1][k2];
+			if (turn == 0 && pieceCode >= 7) {
+				printf("It's white's turn, can't move black pieces.\n");
+                goto P;
+			} else if (turn == 1 && pieceCode < 7) {
+				printf("It's black's turn, can't move white pieces.\n");
+                goto P;
+			} else {
+				int *possibleMoves = calculateMovesPiece(8, 8, board[0], k1, k2, pieceCode);
+				int lengthMovesArr = possibleMoves[0] - 2;
+				if (checkIfMoveIsIn(l1,l2,possibleMoves,lengthMovesArr)) {
+					if (turn == 0 && lookForWhiteCheck(8,8,board[0])) {
+						int temp[8][8];
+						// implement copy function
+						copyArray(board[0],temp[0],64);
+						movePiece(k1,k2,l1,l2,temp[0],pieceCode, &turn);
+						if (lookForWhiteCheck(8,8,temp[0])) {
+							printf("You have to exit the check \n");
+                            goto P;
+							turn--;
+						} else {
+							turn--;
+							movePiece(k1,k2,l1,l2,board[0],pieceCode, &turn);
 
+						}
+					} else if (turn == 1 && lookForBlackCheck(8,8,board[0])) {
+						int temp[8][8];
+						copyArray(board[0],temp[0],64);
+						movePiece(k1,k2,l1,l2,temp[0],pieceCode, &turn);
+						if (lookForBlackCheck(8,8,temp[0])) {
+							printf("You have to exit the check \n");
+							turn++;
+                            goto P;
+						} else {
+							turn++;
+							movePiece(k1,k2,l1,l2,board[0],pieceCode, &turn);
+
+						}
+
+					} else {
+						movePiece(k1,k2,l1,l2,board[0],pieceCode, &turn);
+
+					}
+				} else {
+					printf("The inserted move is not allowed!\n");
+                    goto P;
+				}
+				free(possibleMoves);
+			}
+		}
 
     goto S;
 
