@@ -60,6 +60,15 @@ While the client will have to run the client executable and specify the IP addre
 ```
 You are now ready to play online chess in your terminal via TCP/IP socket, enjoy!
 
+### How to move pieces:
+As of now, only the following positional convention is supported: any piece on the board is represented by an ordered couple of positive integers [row,column]:
+both of them range between 0 and 7. In order to move a piece from a point to another, we use the following syntax:
+```
+xy x'y'
+```
+where x is the initial row, y is the inital column, x' is the ending row and y' is the ending column.
+where xy is the initial position of the piece we want to move, and x'y' is the ending position. x,x',y and y' are positive integers between 0 and 7. 
+
 ## License
 
 [MIT](LICENSE)
