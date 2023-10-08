@@ -59,3 +59,7 @@ While the client will have to run the client executable and specify the IP addre
 ./client "ip address" "port number"
 ```
 You are now ready to play online chess in your terminal via TCP/IP socket, enjoy!
+
+## License
+
+[MIT](LICENSE)
