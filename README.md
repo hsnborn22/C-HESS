@@ -24,4 +24,10 @@ If the command doesn't work (i.e if makefile doesn't work on the target computer
 ```
 gcc bishop.c chess.c movePieces.c printBoard.c tower.c calculateMoves.c methods.c king.c queen.c checkmate.c knight.c pawn.c printMenu.c -o chess
 ```
-You should now have a binary compiled version of the program in your directory, regardless of the approach you took for the last step.
+You should now have a binary compiled version of the program in your directory, regardless of the approach you took for the last step. If that is the case, then just type
+
+gcc bishop.c chess.c movePieces.c printBoard.c tower.c calculateMoves.c methods.c king.c queen.c checkmate.c knight.c pawn.c printMenu.c -o organized
+```
+./chess
+```
+in the terminal and you should be ready to go. You should now see the application main menu in the terminal
