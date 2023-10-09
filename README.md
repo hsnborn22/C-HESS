@@ -59,6 +59,7 @@ While the client will have to run the client executable and specify the IP addre
 ./client "ip address" "port number"
 ```
 You are now ready to play online chess in your terminal via TCP/IP socket, enjoy!
+![game preview](/images/gamepreview.gif)
 
 ### How to move pieces:
 As of now, only the following positional convention is supported: any piece on the board is represented by an ordered couple of positive integers [row,column]:
