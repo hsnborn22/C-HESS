@@ -66,6 +66,9 @@ int charToInt(char value) {
         case '9':
             return 9;
             break;
+	default:
+	    return 10;
+	    break;
     }
 }
 
