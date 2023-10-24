@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "moveCounters.h"
 #define UNDEFINED_VALUE 8001
 
 int valueIsInArray(int value, int *arr, int length);

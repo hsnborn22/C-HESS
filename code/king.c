@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "moveCounters.h"
 #define UNDEFINED_VALUE 8001
 
 int valueIsInArray(int value, int *arr, int length);
@@ -218,7 +219,91 @@ int * calculateAllowedMovesKing(int rows, int cols, int *board, int rowPosition,
                     /* Memory re-allocation is sucessful */
                 }
             }
-        }   
+        }
+        // Castling logic
+        if (code == 6) {
+            // White king castling logic
+            if (kingMoveCountWhite == 0 && towerMoveCountWhite1 == 0) {
+                // white tower 1 in position (0,0)
+                // side # 1 logic (long side)
+                if (board[57] == 0 && board[58] == 0 && board[59] == 0) {
+                    allowedMoves[count - 2] = castleWhiteRow1;
+                    allowedMoves[count - 1] = castleWhiteColumn1;
+                    count += 2;
+                    allowedMoves[0] = count;
+                    /* Declare a temporary variable storing the value of our array of interest */
+                    int *temp = allowedMoves;
+                    allowedMoves = realloc(allowedMoves, count * sizeof(int));
+                    if (!allowedMoves) {
+                        /* Check if memory re-allocation failed */
+                        allowedMoves = temp;
+                    } else {
+                        /* Memory re-allocation is sucessful */
+                    }
+                    longSideFlagWhite = 1;
+                }
+            }   
+            if (kingMoveCountWhite == 0 && towerMoveCountWhite2 == 0) {
+                // side #2 logic (short side)
+                if (board[62] == 0 && board[61] == 0) {
+                    allowedMoves[count - 2] = castleWhiteRow2;
+                    allowedMoves[count - 1] = castleWhiteColumn2;
+                    count += 2;
+                    allowedMoves[0] = count;
+                    /* Declare a temporary variable storing the value of our array of interest */
+                    int *temp = allowedMoves;
+                    allowedMoves = realloc(allowedMoves, count * sizeof(int));
+                    if (!allowedMoves) {
+                        /* Check if memory re-allocation failed */
+                        allowedMoves = temp;
+                    } else {
+                        /* Memory re-allocation is sucessful */
+                    }
+                    shortSideFlagWhite = 1;
+                }
+            }
+        } else if (code == 12) {
+            // Black king castling logic
+            if (kingMoveCountBlack == 0 && towerMoveCountBlack1 == 0) {
+                // black tower 1 in position (0,0)
+                // side # 1 logic (long side)
+                if (board[1] == 0 && board[2] == 0 && board[3] == 0) {
+                    allowedMoves[count - 2] = castleBlackRow1;
+                    allowedMoves[count - 1] = castleBlackColumn1;
+                    count += 2;
+                    allowedMoves[0] = count;
+                    /* Declare a temporary variable storing the value of our array of interest */
+                    int *temp = allowedMoves;
+                    allowedMoves = realloc(allowedMoves, count * sizeof(int));
+                    if (!allowedMoves) {
+                        /* Check if memory re-allocation failed */
+                        allowedMoves = temp;
+                    } else {
+                        /* Memory re-allocation is sucessful */
+                    }
+                    longSideFlagBlack = 1;
+                }
+            }   
+            if (kingMoveCountBlack == 0 && towerMoveCountBlack2 == 0) {
+                // side #2 logic (short side)
+                if (board[6] == 0 && board[5] == 0) {
+                    allowedMoves[count - 2] = castleBlackRow2;
+                    allowedMoves[count - 1] = castleBlackColumn2;
+                    count += 2;
+                    allowedMoves[0] = count;
+                    /* Declare a temporary variable storing the value of our array of interest */
+                    int *temp = allowedMoves;
+                    allowedMoves = realloc(allowedMoves, count * sizeof(int));
+                    if (!allowedMoves) {
+                        /* Check if memory re-allocation failed */
+                        allowedMoves = temp;
+                    } else {
+                        /* Memory re-allocation is sucessful */
+                    }
+                    shortSideFlagBlack = 1;
+                }
+            }
+        }
     }
     return allowedMoves;
 }

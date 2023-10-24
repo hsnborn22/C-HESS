@@ -91,7 +91,6 @@ int main(void) {
 						} else {
 							turn--;
 							movePiece(i1,i2,j1,j2,board[0],pieceCode, &turn);
-
 						}
 					} else if (turn == 1 && lookForBlackCheck(8,8,board[0])) {
 						int temp[8][8];
@@ -103,12 +102,10 @@ int main(void) {
 						} else {
 							turn++;
 							movePiece(i1,i2,j1,j2,board[0],pieceCode, &turn);
-
 						}
 
 					} else {
 						movePiece(i1,i2,j1,j2,board[0],pieceCode, &turn);
-
 					}
 				} else {
 					printf("The inserted move is not allowed!\n");
