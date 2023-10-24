@@ -37,6 +37,20 @@ void movePiece(int initRow, int initColumn, int endRow, int endColumn, int * boa
                 board[5] = 8;
                 board[7] = 0;
             }
+        } else if (code == 7 && endRow == 7) {
+            int promotionCode;
+            int possibleCodes[] = {8,9,10,11};
+            S:
+            printf("Insert the code of the piece you want to promote your pawn to: \n");
+            printf("Reference: \n");
+            printf("8 -> tower \t 9 -> knight \t 10 -> bishop \t 11 -> queen \n");
+            scanf("%d", &promotionCode);
+            if (valueIsInArray(promotionCode, possibleCodes, 4)) {
+                board[endRow*8 + endColumn] = promotionCode;
+            } else {
+                printf("The code inserted is not valid: insert one of the codes specified above.\n");
+                goto S;
+            }
         }
         *turn -= 1;
     } else if (code < 7 && code > 0) {
@@ -58,6 +72,20 @@ void movePiece(int initRow, int initColumn, int endRow, int endColumn, int * boa
                 shortSideFlagWhite = 0;
                 board[61] = 2;
                 board[63] = 0;
+            }
+        } else if (code == 1 && endRow == 0) {
+            int promotionCode;
+            int possibleCodes[] = {2,3,4,5};
+            X:
+            printf("Insert the code of the piece you want to promote your pawn to: \n");
+            printf("Reference: \n");
+            printf("2 -> tower \t 3 -> knight \t 4 -> bishop \t 5 -> queen \n");
+            scanf("%d", &promotionCode);
+            if (valueIsInArray(promotionCode, possibleCodes, 4)) {
+                board[endRow*8 + endColumn] = promotionCode;
+            } else {
+                printf("The code inserted is not valid: insert one of the codes specified above.\n");
+                goto X;
             }
         }
         *turn += 1;
