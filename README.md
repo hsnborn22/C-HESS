@@ -99,3 +99,6 @@ The result of this move will be
 ## License
 
 [MIT](LICENSE)
+
+## Code of conduct 
+[Code of conduct](CODE_OF_CONDUCT.md)
