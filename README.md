@@ -24,7 +24,7 @@ make
 ```
 If the command doesn't work (i.e if makefile doesn't work on the target computer for some reason), then just copy the following line to compile the program into an executable (yes it's pretty long).
 ```
-gcc bishop.c chess.c movePieces.c printBoard.c tower.c calculateMoves.c methods.c king.c queen.c checkmate.c knight.c pawn.c printMenu.c -o chess
+gcc bishop.c chess.c movePieces.c printBoard.c tower.c calculateMoves.c methods.c king.c queen.c checkmate.c knight.c pawn.c printMenu.c moveCounters.c -o chess
 ```
 You should now have a binary compiled version of the program in your directory, regardless of the approach you took for the last step. If that is the case, then just type
 
